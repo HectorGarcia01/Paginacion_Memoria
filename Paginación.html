@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Simulación de la Paginación de Memoria</title>
+        <link rel="stylesheet" href="CSS/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="hero"> 
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+            </div>
+            <ul class="menu-bar">
+                <li><a href="index.html" class="Btn1">Carátula</a></li>
+            </ul>
+            <center>
+                <h1>Paginación</h1>
+            </center>
+            <div class="contenedor_principal">
+                <section id="Seccion_Procesos">
+                    <!--Control de procesos, donde podemos iniciarlos y finalizarlos-->
+                    <div class="contenedor_control_proceso">
+                        <div class="contenedorlabel">
+                            <label>Proceso</label>
+                            <label>Tamaño de Página</label>
+                            <label class="end">Terminar Proceso</label>
+                        </div>
+                        <div class="contenedorinput">
+                            <input type="text" id="NuevoProceso" placeholder="P" title="Ingresa el nombre del Proceso a Iniciar" />
+                            <input type="number" id="TamañoPagina" placeholder="1-6" title="Ingresa el tamaño de página" />
+                            <input type="text" class="end" id="ProcesoFin" placeholder="P" title="Ingresa el nombre del Proceso a Finalizar" />
+                        </div>
+                        <div class="contenedorboton">
+                            <button id="btnIniciar" title="Iniciar el Proceso">INICIAR PROCESO</button>
+                            <button id="btnTerminar" title="Terminar el Proceso">TERMINAR PROCESO</button>
+                        </div>
+                        <div class="contenedorImgAyuda">
+                            <img src="Resource/Help.png" title="
+                                Información:
+                                1. Aplicacion Web que simula la paginación de memoria.
+                                2. El marco de página es de 7 fragmentos.
+                                3. Es capaz de Iniciar y Terminar un mínimo de 8 Procesos.
+                                4. El tamaño de página puede variar de 1 a 6.
+                                5. Existen 2 tablas.
+                                5.1. En la primer tabla se almacenan los procesos en ejecución y en espera.
+                                5.2. En la segunda tabla se almacenan los procesos que ya han finalizado.
+                                6. Un proceso se enviará a espera cuando el marco de página esté lleno.
+                                7. Un proceso también será enviado a espera cuando el número de su página sea 
+                                mayor a las páginas libres del marco de páginas." 
+                                alt="data:image/png;base64,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">
+                        </div>
+                    </div>
+                    <!--Tablas que poseen los procesos en ejecucion, espera y finalizados-->
+                    <div id="contenedor_procesos">
+                        <table class="Tabla" id="TablaProcesosIniciados">
+                            <thead>
+                                <tr>
+                                    <td align=center>#</td>
+                                    <td align=center>PROCESO</td>
+                                    <td align=center>TAMAÑO DE PAGINA</td>
+                                    <td align=center>EN EJECUCION</td>
+                                    <td align=center>EN ESPERA</td>
+                                    <td align=center>ACCIÓN</td>
+                                </tr>
+                            </thead>
+                            <tbody id="ListProcesosIniciados">
+                                <tr>
+                                    <td align=center>...</td>
+                                    <td align=center>...</td>
+                                    <td align=center>...</td>
+                                    <td align=center id="CantidadProcesoEjecucion">0</td>
+                                    <td align=center id="CantidadProcesoEspera">0</td>
+                                    <td align=center>...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="contenedor_procesos_Fin">
+                        <table class="Tabla" id="TablaProcesosFinalizados">
+                            <caption>PROCESOS TERMINADOS</caption>
+                            <thead>
+                                <tr>
+                                    <td align=center>#</td>
+                                    <td align=center>PROCESO</td>
+                                    <td align=center>TAMAÑO DE PAGINA</td>
+                                </tr>
+                            </thead> 
+                            <tbody id="ListProcesosTerminados">
+                                <tr>
+                                    <td align=center>...</td>
+                                    <td align=center>...</td>
+                                    <td align=center>...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section id="Seccion_Marco_Pagina">
+                     <!--Marco de página de 7 fragmentos-->
+                    <div id="contenedor_marco_pagina">
+                        <table style="border:2px solid black">
+                            <thead>
+                                <tr>
+                                    <td align=center>#</td>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                                <tr>
+                                    <td align=center>0</td>
+                                </tr>
+                                <tr>
+                                    <td align=center>1</td>
+                                </tr>
+                                <tr>
+                                    <td align=center>2</td>
+                                </tr>
+                                <tr>
+                                    <td align=center>3</td>
+                                </tr>
+                                <tr>
+                                    <td align=center>4</td>
+                                </tr>
+                                <tr>
+                                    <td align=center>5</td>
+                                </tr>
+                                <tr>
+                                    <td align=center>6</td>
+                                </tr>
+                                <tr>
+                                    <td align=center>7</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="TablaMarco" id="TablaMarcoPagina">
+                            <caption>Marco de Página</caption>
+                            <thead>
+                                <tr>
+                                    <td align=center>PROCESOS</td>
+                                    <!-- <td align=center>ACCION</td> -->
+                                </tr>
+                            </thead> 
+                            <tbody id="ListMarcoPagina">
+                                <div class="cube"></div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="Paginas">
+                        <div>
+                            <h5>
+                                Páginas Libres: 
+                                <span id="PaginasLibres">8</span>
+                            </h5>
+                        </div>
+                        <div>
+                            <h5>
+                                Páginas En Uso:
+                                <span id="PaginasEnUso">0</span>
+                            </h5>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </header>
+
+        <!--Para los script utilizados-->
+        <script src="JS/app.js"></script>
+    </body>
+</html>
